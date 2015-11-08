@@ -26,6 +26,9 @@ Game.prototype = {
     // Setup the boundaries of the game's arena.
     this.setupBoundaries();
 
+    // draw ship to scene
+    this.createShip();
+
     // Begin the first frame.
     requestAnimationFrame(this.tick.bind(this));
   },
@@ -67,6 +70,34 @@ Game.prototype = {
     // Attach the walls to the stage.
     this.stage.addChild(walls);    
   },
+
+  createShip: function () {
+    // create new ship object
+    this.ship = new PIXI.Graphics();
+
+    // draw the ships body (triangle)
+    this.ship.beginFill(0x20d3fe); // give it a color
+    this.ship.moveTo(0, 0); // origin point
+    this.ship.lineTo(-26, 60); // draw a line from origin
+    this.ship.lineTo(26, 60); // draw a line from origin
+    this.ship.endFill();
+
+    // add an engine
+    this.ship.beginFill(0x1495d1);
+    this.ship.drawRect(-15, 60, 30, 8);
+    this.ship.endFill();    
+
+    // position the ship in middle of screen
+    this.ship.x = Math.round(this._width / 2);
+    this.ship.y = Math.round(this._height / 2);
+
+    //attach ship to stage
+    this.stage.addChild(this.ship);
+  },
+
+
+
+
 
   /**
    * Fires at the end of the gameloop to reset and redraw the canvas.
